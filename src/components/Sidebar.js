@@ -5,7 +5,7 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import {Avatar} from "@material-ui/core";
 import CreateIcon from "@material-ui/icons/Create"
 import SidebarOption from './SidebarOption';
-import { Add, Apps, BookmarkBorder, Drafts, ExpandLess, ExpandMore, FileCopy, Inbox, InsertComment, PeopleAlt } from '@material-ui/icons';
+import { Add} from '@material-ui/icons';
 import {db, auth} from '../firebase';
 import {useCollection} from "react-firebase-hooks/firestore";
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -23,7 +23,6 @@ function Sidebar() {
                     <SidebarInfo>
                         <h3>
                         <HeaderAvatar
-                            onClick={() => auth.signOut()} 
                             alt={user?.displayName}
                             src={user?.photoURL}
                         />

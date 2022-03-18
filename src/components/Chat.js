@@ -5,6 +5,7 @@ import { selectRoomId } from '../features/appSlice';
 import {useSelector} from 'react-redux'
 import ChatInput from './ChatInput';
 import Message from './Message';
+import {FaPencilAlt, FaSave,FaTimesCircle} from 'react-icons/fa';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
 import {db, auth} from '../firebase';
@@ -33,6 +34,9 @@ const changeDesc = async () => {
     setIsEditing(false);
 }
 
+const cancelEdit = () => {
+    setIsEditing(false);
+}
 useEffect(() => {
     bottomRef?.current?.scrollIntoView({
         behavior: "smooth"
@@ -48,13 +52,16 @@ useEffect(() => {
                     {
                         isEditing ? 
                         <>
-                            <input type="text" placeholder={channelDetails?.data().desc} onChange={(e) => setNewDesc(e.target.value)}/>
-                            <button onClick={changeDesc}>Save</button>
+                            <input type="text" placeholder={channelDetails?.data().desc} autoFocus onChange={(e) => setNewDesc(e.target.value)}/>
+                            <div className="desc-buttons">
+                                <FaSave onClick={changeDesc}></FaSave>
+                                <FaTimesCircle onClick={cancelEdit}></FaTimesCircle>
+                            </div>
                         </>
                         :
                         <>
-                            <p>{channelDetails?.data().desc}</p>
-                            <button onClick={() => setIsEditing(true)}>Edit channel details</button>
+                            <p>{channelDetails?.data().desc} <FaPencilAlt onClick={() => setIsEditing(true)}/></p>
+                            
                         </>
                     }
             </ChatHeader>
@@ -98,6 +105,7 @@ const ChatHeader = styled.div`
     padding: 20px;
     border-bottom: 3px solid #474b67;
     position: fixed;
+    transition: all .2s ease-out;
     background-color: #252947;
     >h4 {
         display: flex;
@@ -108,15 +116,45 @@ const ChatHeader = styled.div`
     }
     >p {
         opacity: 0.9;
+        > svg {
+            padding: 0 2%;
+            transition: all .2s ease-out;
+            &:hover {
+                opacity: 0.7;
+            }
+        }
     }
     >h4 > .MuiSvgIcon-root {
         margin-left: 10px;
         font-size: 18px;
     }
+
+    input {
+        background:  #252947;
+        color: var(--primary-white);
+        border: 0;
+        padding: 8px;
+        ::placeholder {
+            color: var(--primary-white);
+            opacity: 0.6;
+        }
+    }
     button {
         width: 240px;
         border-radius: 8px;
         border: 0px;
+    }
+    .desc-buttons {
+        display: flex;
+        font-size: 18px;
+        >svg {
+            margin: 4px 16px 0px;
+            transition: all .2s ease-out;
+            padding: 12px;
+            &:hover {
+                opacity: 0.8;
+            }
+        }
     }
 `;
 
