@@ -21,7 +21,7 @@ export default Message
 
 const MessageContainer = styled.div`
     background: ${props => props.className === "sent" ? "#4289f3" : "#383f6d"};
-    float: ${props => props.className === 'sent' ? "right" : "left"};
+    justify-content: ${props => props.className === 'sent' ? "flex-start" : "left"};
     color: var(--primary-white);
     display: flex;
     width: 60%;

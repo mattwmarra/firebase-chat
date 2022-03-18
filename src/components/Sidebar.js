@@ -1,9 +1,7 @@
 
 import React from 'react'
 import styled from 'styled-components';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import {Avatar} from "@material-ui/core";
-import CreateIcon from "@material-ui/icons/Create"
 import SidebarOption from './SidebarOption';
 import { Add} from '@material-ui/icons';
 import {db, auth} from '../firebase';
@@ -75,9 +73,6 @@ const SidebarHeader = styled.div`
 `;
 const HeaderAvatar = styled(Avatar)`
     margin-right: 8px;
-    :hover {
-        opacity: 0.8;
-    }
 `;
 const SidebarInfo = styled.div`
     flex: 1;

@@ -1,4 +1,3 @@
-import { InfoOutlined, StarBorderOutlined } from '@material-ui/icons';
 import {React, useRef, useEffect, useState} from 'react'
 import styled from 'styled-components';
 import { selectRoomId } from '../features/appSlice';
@@ -9,6 +8,7 @@ import {FaPencilAlt, FaSave,FaTimesCircle} from 'react-icons/fa';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
 import {db, auth} from '../firebase';
+import ReactLoading from 'react-loading';
 
 function Chat() {
 const channelId = useSelector(selectRoomId);
@@ -38,10 +38,19 @@ const cancelEdit = () => {
     setIsEditing(false);
 }
 useEffect(() => {
+    console.log("called ");
     bottomRef?.current?.scrollIntoView({
         behavior: "smooth"
     });
-}, [channelId, loading])
+}, [channelId, loading]);
+
+    if(loading) {
+        return (
+            <LoadingWrapper>
+                <ReactLoading type={"spin"} width={660} height={200} color={"#383f6d"}/>
+            </LoadingWrapper>
+        )
+    }
     return (
         <>
         <ChatContainer>
@@ -71,8 +80,8 @@ useEffect(() => {
                     const {message, timeStamp, user, image, userId} = doc.data();
                     return (
                         <Message key={doc.id} message={message} timeStamp={timeStamp} user={user} isUserMessage={userId === currentUser.uid} image={image} />
-                    )
-                })}
+                        )
+                    })}
                 <ChatBottom ref={bottomRef}/>
             </ChatMessages>
        
@@ -84,7 +93,15 @@ useEffect(() => {
     )
 }
 
-export default Chat
+export default Chat;
+
+const LoadingWrapper = styled.div`
+    margin-top: 30vh;
+    margin-left: 30vw;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+`
 
 const ChatContainer = styled.div`
     justify-content: flex-start;
@@ -93,7 +110,6 @@ const ChatContainer = styled.div`
     width: calc(100% - 180px);
     overflow-y: scroll;
     flex-direction: column;
-    margin-bottom: 160px;
     border-bottom: 3px solid #474b67;
 `
 
@@ -159,8 +175,14 @@ const ChatHeader = styled.div`
 `;
 
 
-const ChatMessages = styled.div``;
+const ChatMessages = styled.div`
+    display: flex;
+    flex-direction: column;
+    > .sent {
+        margin-left: 30%;
+    }
+`;
 
 const ChatBottom = styled.div`
-    padding-bottom: 200px;
+    padding-bottom: 10vh;
 `;
