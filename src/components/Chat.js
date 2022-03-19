@@ -38,7 +38,6 @@ const cancelEdit = () => {
     setIsEditing(false);
 }
 useEffect(() => {
-    console.log("called ");
     bottomRef?.current?.scrollIntoView({
         behavior: "smooth"
     });

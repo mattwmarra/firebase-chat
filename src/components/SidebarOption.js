@@ -4,20 +4,14 @@ import {db} from '../firebase';
 import {useDispatch, useSelector} from "react-redux";
 import { enterRoom, selectRoomId } from '../features/appSlice';
 import { execPath } from 'process';
+import  Modal  from './Modal';
 
 function SidebarOption({Icon, title, addChannelOption, id}) {
     const [excerpt, setExcerpt] = useState("")
     const roomId = useSelector(selectRoomId);
     const dispatch = useDispatch();
-    const addChannel = () => {
-        const channelName = prompt('Please enter the channel name');
-        if(channelName){
-            db.collection('channels').add({
-                name: channelName,
-                desc: "brief description of the channel"
-            })
-        }
-    }
+    const [openChannelModal, setOpenChannelModal] = useState(false);
+
     const selectChannel = () => {
         if(id){
             dispatch(enterRoom({
@@ -26,9 +20,10 @@ function SidebarOption({Icon, title, addChannelOption, id}) {
         }
     }
     return (
+        <>
         <SidebarOptionContainer 
             selected={roomId === id}
-            onClick={addChannelOption ? addChannel : selectChannel}>
+            onClick={addChannelOption ? () => setOpenChannelModal(!openChannelModal) : selectChannel}>
 
             {Icon && <Icon fontSize='small' style={{ padding: "10px"}}/>}
             {Icon ? (
@@ -39,6 +34,8 @@ function SidebarOption({Icon, title, addChannelOption, id}) {
                 <p>{excerpt}</p>
             </SidebarOptionChannel>)}
         </SidebarOptionContainer>
+        <Modal active={openChannelModal} setActive={setOpenChannelModal}></Modal>
+        </>
     )
 }
 

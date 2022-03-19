@@ -60,7 +60,6 @@ const SidebarContainer = styled.div`
 const SidebarHeader = styled.div`
     margin-top: 60px;
     display: flex;
-    border-bottom: 1px solid var(--primary-red);
     padding: 13px;
     > .MuiSvgIcon-root {
         padding: 8px;

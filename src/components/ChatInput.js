@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {db, auth} from '../firebase';
 import firebase from 'firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Modal from './Modal';
 
 function ChatInput({channelName, channelId, bottomRef}) {
     const [user] = useAuthState(auth);
