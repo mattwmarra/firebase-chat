@@ -41,7 +41,7 @@ useEffect(() => {
     bottomRef?.current?.scrollIntoView({
         behavior: "smooth"
     });
-}, [channelId, loading]);
+}, [channelId, loading, channelMessages]);
 
     if(loading) {
         return (

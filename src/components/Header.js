@@ -1,21 +1,23 @@
 import React from 'react'
 import styled from "styled-components"
-import {Avatar} from "@material-ui/core";
-import AccessTimeIcon from "@material-ui/icons/AccessTime";
-import SearchIcon from "@material-ui/icons/Search";
-import { HelpOutline } from '@material-ui/icons';
 import {FaSignOutAlt} from "react-icons/fa";
 import {auth} from "../firebase";
 import { useAuthState } from 'react-firebase-hooks/auth';
+
 function Header() {
     const [user] = useAuthState(auth);
+    
+    const signOutUser = () => {
+        auth.signOut();
+    }
+    
     return (
         <HeaderContainer>
             <HeaderLeft>
                  <h2>LAZY CHAT</h2>
             </HeaderLeft>
             <HeaderRight>
-                <FaSignOutAlt />
+                <FaSignOutAlt onClick={signOutUser}/>
             </HeaderRight>
 
         </HeaderContainer>

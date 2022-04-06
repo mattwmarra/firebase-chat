@@ -27,13 +27,13 @@ const Modal = ({active, setActive}) => {
         
     }
     if(!active){
-        return <></>;
+        return null;
     }
 
     return (
     <ModalBackground>
         <ModalWrapper>
-            <FaTimes />
+            <FaTimes onClick={() => setActive(false)} className="close-button"/>
             <h2>Add a new Channel</h2>
             <input type="text" placeholder='give it a unique name' onChange={e => setChannelName(e.target.value)}/>
             <label className="error">{errorText}</label>
@@ -61,6 +61,13 @@ const ModalWrapper = styled.div`
     .error {
         color: #ff7675;
     }
+    .close-button {
+        padding: 8px;
+        cursor: pointer;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
     > h2 {
         line-height: 2;
     }
@@ -68,9 +75,6 @@ const ModalWrapper = styled.div`
         margin: 12px 0;
         line-height: 2;
         padding: 6px;
-    }
-    svg {
-        float: right;
     }
     > button {
         line-height: 2.5;

@@ -21,7 +21,7 @@ function ChatInput({channelName, channelId, bottomRef}) {
             userId: user.uid
         });
         setMessage("");
-        bottomRef.current.scrollIntoView({
+        bottomRef?.current.scrollIntoView({
             behavior: "smooth"
         })
     }
