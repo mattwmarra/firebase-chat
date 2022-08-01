@@ -18,7 +18,7 @@ const Modal = ({active, setActive}) => {
         }
         //TODO: check for duplicate 
         db.collection('channels').add({
-            name: channelName,
+            name: channelName.toLowerCase(),
             desc: channelDesc
         })
         setChannelDesc("");

@@ -18,11 +18,12 @@ const [newDesc, setNewDesc] = useState("")
 const [currentUser] = useAuthState(auth);
 const [channelDetails] = useDocument(
     channelId && db.collection('channels').doc(channelId)
-);
+    );
+    console.log(channelDetails)
 const [channelMessages, loading] = useCollection(
     channelId && db.collection('channels')
     .doc(channelId).collection("messages")
-    .orderBy("timeStamp", "asc")
+    .orderBy("timeStamp", "desc")
 )
 
 const changeDesc = async () => {
@@ -50,6 +51,7 @@ useEffect(() => {
             </LoadingWrapper>
         )
     }
+    console.log(channelId);
     return (
         <>
         <ChatContainer>
@@ -75,13 +77,13 @@ useEffect(() => {
             </ChatHeader>
 
             <ChatMessages>
+                <ChatBottom ref={bottomRef}/>
                 {channelMessages?.docs.map(doc => {
                     const {message, timeStamp, user, image, userId} = doc.data();
                     return (
                         <Message key={doc.id} message={message} timeStamp={timeStamp} user={user} isUserMessage={userId === currentUser.uid} image={image} />
                         )
                     })}
-                <ChatBottom ref={bottomRef}/>
             </ChatMessages>
        
             <ChatInput channelId={channelId} channelName={channelDetails?.data().name}/>
@@ -103,12 +105,12 @@ const LoadingWrapper = styled.div`
 `
 
 const ChatContainer = styled.div`
-    justify-content: flex-start;
+    justify-content: flex-end;
     color: var(--primary-white);
     margin-top: 62px;
     width: calc(100% - 180px);
-    overflow-y: scroll;
-    flex-direction: column;
+    /* overflow-y: scroll; */
+    flex-direction: column-reverse;
     border-bottom: 3px solid #474b67;
 `
 
@@ -134,6 +136,7 @@ const ChatHeader = styled.div`
         > svg {
             padding: 0 2%;
             transition: all .2s ease-out;
+            cursor: pointer;
             &:hover {
                 opacity: 0.7;
             }
@@ -142,6 +145,7 @@ const ChatHeader = styled.div`
     >h4 > .MuiSvgIcon-root {
         margin-left: 10px;
         font-size: 18px;
+        cursor: pointer;
     }
 
     input {
@@ -166,6 +170,7 @@ const ChatHeader = styled.div`
             margin: 4px 16px 0px;
             transition: all .2s ease-out;
             padding: 12px;
+            cursor: pointer;
             &:hover {
                 opacity: 0.8;
             }
@@ -176,12 +181,13 @@ const ChatHeader = styled.div`
 
 const ChatMessages = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
+    height: 90%;
+    overflow-y: scroll;
     > .sent {
         margin-left: 30%;
     }
 `;
 
 const ChatBottom = styled.div`
-    padding-bottom: 10vh;
 `;

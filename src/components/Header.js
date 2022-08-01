@@ -17,9 +17,11 @@ function Header() {
                  <h2>LAZY CHAT</h2>
             </HeaderLeft>
             <HeaderRight>
-                <FaSignOutAlt onClick={signOutUser}/>
+                <div>
+                    <label>Logout</label>
+                    <FaSignOutAlt onClick={signOutUser} />
+                </div>
             </HeaderRight>
-
         </HeaderContainer>
     )
 }
@@ -51,16 +53,25 @@ const HeaderRight = styled.div`
     display: flex;
     flex: 0.3;
     justify-content: flex-end;
-    > svg {
-        text-align: right;
-        margin-right: 12px;
-        color: white;
-        opacity: 0.8;
-        transition: all .2s ease-out;
+    div {
+        display: flex;
+        align-items: center;
+        > svg, label {
+            text-align: right;
+            color: white;
+            opacity: 0.8;
+            transition: all .2s ease-out;
+            padding: 0 .5rem;
+        }
         cursor: pointer;
-        padding: 12px;
-        &: hover {
+        transition: all .2s ease-out;
+        border-radius: 3rem;
+        padding: .9rem;
+        margin-right: 2rem;
+
+        &:hover {
             opacity: 1;
+            background: #45508D;
         }
     }
 `;

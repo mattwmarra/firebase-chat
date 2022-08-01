@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components';
 
-function Message({message, timeStamp, user, image, isUserMessage}) {
+function Message({ message, timeStamp, user, image, isUserMessage }) {
+    console.log(image)
     return (
         <MessageContainer className={isUserMessage ? "sent" : "received"}>
             {isUserMessage ? null : <img src={image} alt="profile" />}
